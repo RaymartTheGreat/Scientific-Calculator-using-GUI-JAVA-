@@ -1,0 +1,145 @@
+import java.awt.event.*;
+import java.awt.*;
+import javax.swing.*;
+
+public class Calculator extends JFrame implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7340494608897079598L;
+
+	private static final float OF = 0;
+	
+	private JTextField op1;
+	private JTextField op2;
+	private JButton add;
+	private JButton subtract;
+	private JButton multiply;
+	private JButton divide;
+	private JButton modulus;
+	private JLabel res;
+	private JButton clear;
+	
+	private JPanel top;
+	private JPanel mid;
+	private JPanel bottom;
+	
+	public Calculator(String title) {
+		super(title);
+		super.setLayout(new GridLayout (3,1));
+		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		super.setSize(400, 150);
+		super.setResizable(false);
+		
+		op1 = new JTextField(10);
+		op2 = new JTextField(10);
+		res = new JLabel("Result: None");
+		multiply = new JButton("*");
+		subtract = new JButton("-");
+		divide = new JButton("/");
+		modulus = new JButton("%");
+		add = new JButton("+");
+		clear = new JButton("C");
+		
+		top = new JPanel (new FlowLayout ());
+		mid = new JPanel (new FlowLayout ());
+		bottom = new JPanel (new FlowLayout ());
+		
+		top.add(new JLabel ("OP1: "));
+		top.add(op1);
+		top.add(new JLabel ("OP2: "));
+		top.add(op2);
+		
+		mid.add(res);
+		
+		bottom.add(multiply);
+		bottom.add(subtract);
+		bottom.add(divide);
+		bottom.add(modulus);
+		bottom.add(add);
+		bottom.add(clear);
+		
+		super.add(top);
+		super.add(mid);
+		super.add(bottom);
+		
+		multiply.addActionListener (this);
+		subtract.addActionListener (this);
+		divide.addActionListener (this);
+		modulus.addActionListener (this);
+		add.addActionListener (this);
+		clear.addActionListener (this);
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		
+		JButton exec = (JButton) e.getSource ();
+		float optResult = OF;
+		
+		if(exec.getText().equals("+")) {
+			try {
+				optResult = Float.valueOf(op1.getText()).floatValue() + Float.valueOf(op2.getText()).floatValue();
+				res.setText("Result: " + optResult);
+				
+			}catch (Exception err) {
+				JOptionPane.showMessageDialog(this,"Error Input Format", "Error",
+				JOptionPane.ERROR_MESSAGE);
+			}
+			
+		}
+		
+		if(exec.getText().equals("-")) {
+			try {
+				optResult = Float.valueOf(op1.getText()).floatValue() - Float.valueOf(op2.getText()).floatValue();
+				res.setText("Result: " + optResult);
+				
+			}catch (Exception err) {
+				JOptionPane.showMessageDialog(this,"Error Input Format", "Error",
+				JOptionPane.ERROR_MESSAGE);
+			}	
+		}
+		
+		if(exec.getText().equals("*")) {
+			try {
+				optResult = Float.valueOf(op1.getText()).floatValue() * Float.valueOf(op2.getText()).floatValue();
+				res.setText("Result: " + optResult);
+				
+			}catch (Exception err) {
+				JOptionPane.showMessageDialog(this,"Error Input Format", "Error",
+				JOptionPane.ERROR_MESSAGE);
+			}
+		} 
+		
+		if(exec.getText().equals("/")) {
+			try {
+				optResult = Float.valueOf(op1.getText()).floatValue() / Float.valueOf(op2.getText()).floatValue();
+				res.setText("Result: " + optResult);
+				
+			}catch (Exception err) {
+				JOptionPane.showMessageDialog(this,"Error Input Format", "Error",
+				JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		
+		if(exec.getText().equals("%")) {
+			try {
+				optResult = Float.valueOf(op1.getText()).floatValue() % Float.valueOf(op2.getText()).floatValue();
+				res.setText("Result: " + optResult);
+				
+			}catch (Exception err) {
+				JOptionPane.showMessageDialog(this,"Error Input Format", "Error",
+				JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		
+		else if(exec.getText().equals("C")) {
+			op1.setText("");
+			op2.setText("");
+			res.setText("Result: None");
+		}
+}
+	public static void main (String args[]) {
+		Calculator win = new Calculator("Calculator");
+		win.setVisible(true);
+	}
+}
